@@ -1,115 +1,130 @@
-program exerB
+program exerA
+    implicit none
+
     integer, parameter :: sp = kind(0.e0)
     integer, parameter :: dp = kind(0.d0)
-    integer, parameter :: max_iter = 100000
+    integer, parameter :: qp = kind(0._16)
 
-    integer, parameter :: x_array_size = 4
-    real(sp), parameter :: x_sp_values(x_array_size) = [0.1_sp,0.2_sp,0.3_sp,0.4_sp]
-    real(dp), parameter :: x_dp_values(x_array_size) = [0.1_dp,0.2_dp,0.3_dp,0.4_dp]
+    integer, parameter :: max_iter = 10000
 
-    ! Não sei o que fazer com a saída para simples ou dupla. Primeiro simples e depois dupla? Intercalado?
-    ! Precisão negativa? Por definição do pdf sim, mas deveria tomar o módulo?
+    real(sp) :: precision_sp
+    real(dp) :: precision_dp
+    real(qp) :: precision_qp
+    integer :: bits_sp, bits_dp, bits_qp
 
-    call eval_sp_array_precision()
-    call eval_dp_array_precision()
-    print *, ""
+    call test_sp(precision_sp, bits_sp)
+    call test_dp(precision_dp, bits_dp)
+    call test_qp(precision_qp, bits_qp)
 
-    print *, "Como resposta geral, nas condições avaliadas, podemos aproximar logarítimos por séries."
-    print *, "Entretanto, se x fosse maior que 1, a série não iria convergir."
-    print *, "Para valores muito próximos de 1, o número de iterações até chegar na precisão aumenta drasticamente."
-    print *, "Para uma aproximação ser boa ou não, tudo depende da precisão necesárria."
-    print *, "Para os valores avaliados em precisão dupla, chegamos em 10^-16"
-    print *, "Logo, se isso for suficiente para o problema a ser resolvido, podemos usar a aproximação em série."
-    print *, "Além disso, quanto menor for o valor de x, melhor o método de série funciona."
+    print *, bits_sp, precision_sp
+    print *, bits_dp, precision_dp
+    print *, bits_qp, precision_qp
 
 contains
-    subroutine eval_sp_array_precision()
-        integer :: i
-        real(sp) :: precision
+    subroutine test_sp(precision, bits)
+        real(sp) :: a, sum, one
+
+        integer :: iter
+
+        real(sp), intent(out) :: precision
+        integer, intent(out) :: bits
 
         print *, "PRECISAO SIMPLES"
-        do i = 1, x_array_size
-            precision = eval_ln_precision_sp(x_sp_values(i))
-            print *, x_sp_values(i), precision
+
+        one = 1._sp
+        a = one
+        iter = 0
+
+        do
+            iter = iter + 1
+            sum = a + one
+
+            print *, a, sum
+
+            if (sum == one) exit
+
+            if ((iter > max_iter)) then
+                print *, "Exit by max iter"
+                exit
+            end if
+
+            a = a/2._sp
         end do
 
-    end subroutine eval_sp_array_precision
+        precision = a * 2._sp
+        bits = iter -1
+       
+    end subroutine test_sp
 
-    subroutine eval_dp_array_precision()
-        integer :: i
-        real(dp) :: precision
+    subroutine test_dp(precision, bits)
+        real(dp) :: a, sum, one
+
+        integer :: iter
+
+        real(dp), intent(out) :: precision
+        integer, intent(out) :: bits
 
         print *, "PRECISAO DUPLA"
-        do i = 1, x_array_size
-            precision = eval_ln_precision_dp(x_dp_values(i))
-            print *, x_dp_values(i), precision
-        end do
 
-    end subroutine eval_dp_array_precision
+        one = 1._dp
+        a = one
+        iter = 0
 
-    function eval_ln_precision_sp(x) result(precision)
-        real(sp), intent(in) :: x
-        real(sp) :: precision
-        real(sp) :: epsilon, epsilon_new
-        real(sp) :: ln
-        
-        integer :: i
-        i = 1
-        ln = 0
-        
         do
-            ! Verificação para não entrar em loop infinito
-            if (i > max_iter) then
+            iter = iter + 1
+            sum = a + one
+
+            print *, a, sum
+
+            if (sum == one) exit
+
+            if ((iter > max_iter)) then
                 print *, "Exit by max iter"
                 exit
             end if
 
-            epsilon_new = (-1)**(i+1) *(x**i)/(i*1._sp)
-
-            if (ln == (ln + epsilon_new)) then
-                exit
-            else
-                ln = ln + epsilon_new
-                epsilon = epsilon_new
-            end if
-
-            i = i + 1
+            a = a/2._dp
         end do
-        precision = epsilon/ln
 
-    end function eval_ln_precision_sp
+        precision = a * 2._dp
+        bits = iter -1
+       
+    end subroutine test_dp
 
-    function eval_ln_precision_dp(x) result(precision)
-        real(dp), intent(in) :: x
-        real(dp) :: precision
-        real(dp) :: epsilon, epsilon_new
-        real(dp) :: ln
-        
-        integer :: i
-        i = 1
-        ln = 0
-        
+    subroutine test_qp(precision, bits)
+        real(qp) :: a, sum, one
+
+        integer :: iter
+
+        real(qp), intent(out) :: precision
+        integer, intent(out) :: bits
+
+        print *, "PRECISAO QUADRUPLA"
+
+        one = 1._qp
+        a = one
+        iter = 0
+
         do
-            ! Verificação para não entrar em loop infinito
-            if (i > max_iter) then
+            iter = iter + 1
+            sum = a + one
+
+            print *, a, sum
+
+            if (sum == one) exit
+
+            if ((iter > max_iter)) then
                 print *, "Exit by max iter"
                 exit
             end if
 
-            epsilon_new = (-1)**(i+1) *(x**i)/(i*1._dp)
-
-            if (ln == (ln + epsilon_new)) then
-                exit
-            else
-                ln = ln + epsilon_new
-                epsilon = epsilon_new
-            end if
-
-            i = i + 1
+            a = a/2._qp
         end do
-        
-        precision = epsilon/ln
 
-    end function eval_ln_precision_dp
+        precision = a * 2._qp
+        bits = iter -1
+       
+    end subroutine test_qp
 
-end program exerB
+end program exerA
+
