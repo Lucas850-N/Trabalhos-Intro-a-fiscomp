@@ -55,7 +55,7 @@ program exerB
         end if 
       end do
       precisao_x = epsilon/ln
-      print '(ES12.4, 2X, ES12.4)', epsilon, precisao_x
+      print '(ES12.4, 2X, ES12.4)', x, precisao_x
 
     end subroutine 
     subroutine calculo_serie_de_taylor_dupla(x, n, ln, serie_de_taylor, precisao_x, termo_de_taylor, serie_de_taylor_nova&
@@ -78,6 +78,6 @@ program exerB
         end if 
       end do 
       precisao_x = epsilon/ln
-      print '(ES12.4, 2X, ES12.4)', epsilon, precisao_x
+      print '(ES12.4, 2X, ES12.4)', x, precisao_x
     end subroutine
 end program exerB
