@@ -11,19 +11,35 @@ program exer1
         contains
                 !Subrotina para o cálculo direto da derivada (valor preciso)
                 subroutine calculo_preciso (x, ln, derivada_ln, derivada_2_ln, derivada_3_ln)
-                        real :: x 
-                        real :: derivada_ln, derivada_2_ln, derivada_3_ln, ln
-                        ln = log(1+(x**2))
-                        derivada_ln = (2*x_0)/(1+x**2)
-                        derivada_2_ln = (-2*(x**2-1))/(x**4+2*x**2+1)
-                        derivada_3_ln = (4*(x**3-3*x))/(x**6+3*x**4+3*x**2+1)
 
-                        print *, derivada_ln, derivada_2_ln, derivada_3_ln
+
+                  !Declaração de variáveis
+                  real :: x 
+                  real :: derivada_ln, derivada_2_ln, derivada_3_ln, ln
+                  ln = log(1+(x**2))
+                  derivada_ln = (2*x_0)/(1+x**2)
+                  derivada_2_ln = (-2*(x**2-1))/(x**4+2*x**2+1)
+                  derivada_3_ln = (4*(x**3-3*x))/(x**6+3*x**4+3*x**2+1)
+
+                  print *, derivada_ln, derivada_2_ln, derivada_3_ln
         
                 end subroutine
 
                 !Subrotina para o cálculo da primeira derivada usando 2 pontos para frente
                 subroutine derivada_1_2_pontos_frente
+
+                  !Declaração de variáveis
+                  real :: x, f_linha
+                  real(8), dimension(14), h
+                  integer :: i
+
+                  do i = 1, 14
+                    f_linha = (log(1+(x+h(i))**2) - log(1+x))/h(i)
+                  end do
+
+
+
+
 
                 end subroutine
 
