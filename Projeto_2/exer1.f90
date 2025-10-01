@@ -3,9 +3,23 @@ program exer1
 !Declaração de variáveis
         implicit none
         real, parameter :: x_0 = 0.5
-        real :: derivada_ln, derivada_2_ln, derivada_3_ln, ln
+        real(8) :: derivada_ln, derivada_2_ln, derivada_3_ln, ln, f_linha_1, f_linha_2, desvio_derivada_1, desvio_derivada_2, &
+          & desvio_derivada_3, desvio_derivada_4, desvio_derivada_5, desvio_derivada_6, desvio_derivada_7, f_linha_3, f_linha_4, &
+          & f_linha_5, f_linha_6, f_linha_7
+        real(8), dimension(14) :: h 
+        integer :: i
+        real(8), dimension(14) :: desvio_derivada_array_1, desvio_derivada_array_2, desvio_derivada_array_3, desvio_derivada_array_4&
+          &, desvio_derivada_array_4, desvio_derivada_array_5, desvio_derivada_array_6, desvio_derivada_array_7
+
 
         call calculo_preciso(x_0, ln, derivada_ln, derivada_2_ln, derivada_3_ln)
+        call derivada_1_2_pontos_frente(x_0, f_linha, derivada_ln, desvio_derivada_1, h, i, desvio_derivada_array_1)
+        call derivada_1_2_pontos_tras(x_0, f_linha_2, derivada_ln, desvio_derivada_2, h, i, desvio_derivada_array_2)
+        call derivada_1_3_pontos_simetricos(x_0, f_linha_3, derivada_ln, desvio_derivada_3, h, i, desvio_derivada_array_3)
+        call derivada_1_5_pontos_simetricos(x_0, f_linha_4, derivada_ln, desvio_derivada_4, h, i, desvio_derivada_array_4)
+        call derivada_2_3_pontos_simetricos(x_0, f_linha_5, derivada_2_ln, desvio_derivada_5, h, i, desvio_derivada_array_5)
+        call derivada_2_5_pontos_simetricos(x_0, f_linha_6, derivada_2_ln, desvio_derivada_6, h, i, desvio_derivada_array_6)
+        call derivada_3_5_pontos_antisimetricos(x_0, f_linha_7, derivada_3_ln, desvio_derivada_7, h, i, desvio_derivada_array_7)
 
 !Inicio dos subprogramas
         contains
@@ -15,7 +29,7 @@ program exer1
 
                   !Declaração de variáveis
                   real :: x 
-                  real :: derivada_ln, derivada_2_ln, derivada_3_ln, ln
+                  real(8) :: derivada_ln, derivada_2_ln, derivada_3_ln, ln
                   ln = log(1+(x**2))
                   derivada_ln = (2*x_0)/(1+x**2)
                   derivada_2_ln = (-2*(x**2-1))/(x**4+2*x**2+1)
@@ -26,50 +40,123 @@ program exer1
                 end subroutine
 
                 !Subrotina para o cálculo da primeira derivada usando 2 pontos para frente
-                subroutine derivada_1_2_pontos_frente
+                subroutine derivada_1_2_pontos_frente(x, f_linha, derivada_ln, desvio_derivada, h, i, desvio_derivada_array)
 
                   !Declaração de variáveis
-                  real :: x, f_linha
-                  real(8), dimension(14), h
+                  real :: x
+                  real(8) :: f_linha, derivada_ln, desvio_derivada
+                  real(8), dimension(14) :: h
                   integer :: i
+                  real(8), dimension(14) :: desvio_derivada_array
 
                   do i = 1, 14
                     f_linha = (log(1+(x+h(i))**2) - log(1+x))/h(i)
+                    desvio_derivada = derivada_ln - f_linha
+                    desvio_derivada_array(i) = desvio_derivada_array(i)
                   end do
-
-
-
-
-
                 end subroutine
 
                 !subrotina para o cálculo da primeira derivada usando 2 pontos para trás 
-                subroutine derivada_1_2_pontos_trás
+                subroutine derivada_1_2_pontos_tras(x, f_linha, derivada_ln, desvio_derivada, h, i, desvio_derivada_array)
+
+                  real :: x, f_linha, derivada_ln, desvio_derivada
+                  real(8), dimension(14) :: h
+                  integer :: i
+                  real(8), dimension(14) :: desvio_derivada_array
+
+                    do i = 1, 14
+                    f_linha = -(log(1+(x-h(i))**2) + log(1+x))/h(i)
+                    desvio_derivada = derivada_ln - f_linha
+                    desvio_derivada_array(i) = desvio_derivada
+                    end do
 
                 end subroutine
 
                 !Subrotina para o cálculo da primeira derivada usando 3 pontos simétricos
-                subroutine derivada_1_3_pontos_simetricos
+                subroutine derivada_1_3_pontos_simetricos(x, f_linha, derivada_ln, desvio_derivada, h, i, desvio_derivada_array)
+
+                  real :: x
+                  real :: f_linha, derivada_ln, desvio_derivada
+                  real(8), dimension(14) :: h
+                  integer :: i
+                  real(8), dimension(14) :: desvio_derivada_array
+
+                  do i = 1, 14
+                    f_linha = (log(1+(x+h(i))**2) - log(1+(x-h(i))**2))/h(i)
+                    desvio_derivada = derivada_ln - f_linha
+                    desvio_derivada_array(i) = desvio_derivada_array(i)
+                  end do
 
                 end subroutine
 
                 !Subrotina para o cálculo da primeira derivada usando 5 pontos simétricos 
-                subroutine derivada_1_5_pontos_simetricos
+                subroutine derivada_1_5_pontos_simetricos(x, f_linha, derivada_ln, desvio_derivada, h, i, desvio_derivada_array)
+
+                  real :: x, f_linha, derivada_ln, desvio_derivada
+                  real(8), dimension(14) :: h
+                  integer :: i
+                  real(8), dimension(14) :: desvio_derivada_array
+
+                  do i = 1, 14
+                    f_linha = ((log(1+(x-2*h(i))**2)) + (8*log(1+(x+h(i))**2)) - (8*log(1+(x-h(i))**2)) - &
+                    &(log(1+(x+2*h(i))**2)))/(12*h(i)) !Talvez de erro
+                    desvio_derivada = derivada_ln - f_linha
+                    desvio_derivada_array(i) = desvio_derivada_array(i)
+                  end do
 
                 end subroutine
 
                 !Subrotina para o cálculo da segunda derivada usando 3 pontos simétricos
-                subroutine derivada_2_3_pontos_simetricos
+                subroutine derivada_2_3_pontos_simetricos(x, f_linha, derivada_2_ln, desvio_derivada, h, i, desvio_derivada_array)
+
+                  real :: x
+                  real(8) :: f_linha, derivada_2_ln, desvio_derivada
+                  real(8), dimension(14) :: h
+                  integer :: i
+                  real(8), dimension(14) :: desvio_derivada_array
+
+                  do i = 1, 14
+                    f_linha = (log(1+(x+h(i))**2) - log(1+(x-h(i))**2) - (2*ln(1+x**2)))/(h(i)**2)
+                    desvio_derivada = derivada_2_ln - f_linha
+                    desvio_derivada_array(i) = desvio_derivada_array(i)
+                  end do
 
                 end subroutine
 
                 !Subrotina para o cálculo da segunda derivada usando 5 pontos simétricos
-                subroutine derivada_2_5_pontos_simetricos
+                subroutine derivada_2_5_pontos_simetricos(x, f_linha, derivada_2_ln, desvio_derivada, h, i, desvio_derivada_array)
+
+                  real :: x
+                  real(8) :: f_linha, derivada_2_ln, desvio_derivada
+                  real(8), dimension(14) :: h
+                  integer :: i
+                  real(8), dimension(14) :: desvio_derivada_array
+
+                  do i = 1, 14
+                    f_linha = ((-ln(1+(x-2*h(i))**2)) + (16*log(1+(x+h(i))**2)) + (16*log(1+(x-h(i))**2)) - &
+                    &(log(1+(x+2*h(i))**2)) - (30*(log(1+x)**2)))/(12*(h(i))**2) !Talvez de erro
+                    desvio_derivada = derivada_2_ln - f_linha_2
+                    desvio_derivada_array(i) = desvio_derivada_array(i)
+                  end do
 
                 end subroutine
 
                 !Subrotina para o cálculo da terceira derivada usando 5 pontos anti-simetricos
-                subroutine derivada_3_5_pontos_antisimetricos
+                subroutine derivada_3_5_pontos_antisimetricos(x, f_linha, derivada_3_ln, desvio_derivada, h, i, desvio_derivada_array)
+
+                  real :: x
+                  real(8) :: f_linha_3, derivada_3_ln, desvio_derivada
+                  real(8), dimension(14) :: h
+                  integer :: i
+                  real(8), dimension(14) :: desvio_derivada_array
+
+                  do i = 1, 14
+                    f_linha = ((log(1+(x+2*h(i))**2)) - 2**(log(1+(x+h(i))**2)) + 2*(log(1+(x-h(i))**2)) - &
+                    &(log(1+(x-2*h(i)**2)))/(2*(h(i))**3)!Talvez de erro
+                    desvio_derivada = derivada_3_ln - f_linha_3
+                    desvio_derivada_array(i) = desvio_derivada_array(i)
+                  end do
+
 
                 end subroutine                 
 
