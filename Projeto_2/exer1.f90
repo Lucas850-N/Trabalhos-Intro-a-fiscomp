@@ -38,10 +38,45 @@ program exer1
           & "derivada para trás 2 pontos", "derivada segunda simétrica 3 pontos", "derivada segunda simétrica 5 pontos",&
           & "derivada terceira anti-simétrica 5 pontos"
         do i = 1, dim_h
-          write(2,*) h(i), desvio_derivada_array_3(i), desvio_derivada_array_1(i), desvio_derivada_array_2(i),&
+          write(2, *) h(i), desvio_derivada_array_3(i), desvio_derivada_array_1(i), desvio_derivada_array_2(i),&
             & desvio_derivada_array_5(i), desvio_derivada_array_6(i), desvio_derivada_array_7(i)
         end do 
         close(2)
+
+        print *, "Melhores valores de h:"
+        print *, ""
+        print *, "Derivada simétrica 3 pontos:" 
+        print *, "h = 0.000001"
+        print *, "Esse valor de h apresentou um desvio de 2.3004487204048019E-011, o menor quando comparado com o restante,&
+          & indicando maior precisão."
+        print *, ""
+        print *, "Derivada para frente 2 pontos:"
+        print *, "h = 0.00000001"
+        print *, "Esse valor de h apresentou um desvio de 7.9055879620426595E-009, o menor quando comparado com o restante,&
+          & indicando maior precisão."
+        print *, ""
+        print *, "Derivada para trás 2 pontos:"
+        print *, "h = 0.00000001" 
+        print *, "Esse valor de h apresentou um desvio de 4.2108472264601460E-010, o menor quando comparado com o restante,&
+          & indicando maior precisão."
+        print *, ""
+        print *, "Derivada segunda simétrica 3 pontos"
+        print *, "h = 0.0001"
+        print *, "Esse valor de h apresentou um desvio de 9.3870857753586279E-009, o menor quando comparado com o restante,&
+          & indicando maior precisão."
+        print *, ""
+        print *, "Derivada segunda simétrica 5 pontos"
+        print *, "h = 0.001"
+        print *, "Esse valor de h apresentou um desvio de 1.2802425786162530E-011, o menor quando comparado com o restante,&
+          & indicando maior precisão."
+        print *, ""
+        print *, "Derivada terceira anti-simétrica 5 pontos"
+        print *, "h = 0.0005"
+        print *, "Esse valor de h apresentou um desvio de 2.1206759273084685E-006, o menor quando comparado com o restante,&
+          & indicando maior precisão."
+
+
+
 
 !Inicio dos subprogramas
         contains
