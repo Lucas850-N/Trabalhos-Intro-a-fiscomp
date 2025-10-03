@@ -1,4 +1,4 @@
-h                      derivada simétrica 3 pontos                     derivada para frente 2 pontos                      derivada para trás 2 pontos              derivada segunda simétrica 3 pontos              derivada segunda simétrica 5 pontos        derivada terceira anti-simétrica 5 pontos
+     h                           derivada simétrica 3 pontos     derivada para frente 2 pontos      derivada para trás 2 pontos     derivada segunda simétrica 3 pontos     derivada segunda simétrica 5 pontos     derivada terceira anti-simétrica 5 pontos
   0.50000000000000000       0.10685281944005476       0.14000725849147100       0.35371289737158051        2.7440311726103062E-002   3.8083267292325140E-002   1.0928683356301832     
   0.20000000000000001        1.8503940709211686E-002   7.8162843215790034E-002  0.11517072463421341        6.6678392500167938E-003   1.8277992031834334E-003  0.20222918699597248     
   0.10000000000000001        4.6765268515643887E-003   4.3411484337507855E-002   5.2764538040636522E-002   1.7602237814435817E-003   1.2435195858728765E-004   5.0517228470542630E-002
