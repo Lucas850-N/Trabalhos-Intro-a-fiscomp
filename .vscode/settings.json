@@ -1,0 +1,8 @@
+{
+    "code-runner.executorMap": {
+        "fortran": "cd $dir && gfortran -g -fcheck=all -Wall -o $fileNameWithoutExt.exe $fileName && $dir$fileNameWithoutExt.exe"
+    },
+    "code-runner.runInTerminal": true,
+    "code-runner.preserveFocus": false,
+    "code-runner.clearPreviousOutput": true
+}

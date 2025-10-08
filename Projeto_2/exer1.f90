@@ -177,7 +177,7 @@ program exer1
                   integer, intent(in) :: dim_h
                   real(8), dimension(:), intent(out) :: desvio_derivada_array
 
-                  do i = 1, size(h)
+                  do i = 1, dim_h
                     f_linha = (log(1.0d0+(x+h(i))**2) + log(1.0d0+(x-h(i))**2) - (2.0d0*log(1.0d0+x**2)))/(h(i)**2)
                     desvio_derivada = abs(derivada_2_ln - f_linha)
                     desvio_derivada_array(i) = desvio_derivada
@@ -218,7 +218,7 @@ program exer1
                   integer, intent(in) :: dim_h
                   real(8), dimension(:), intent(out) :: desvio_derivada_array
 
-                  do i = 1, size(h)
+                  do i = 1, dim_h
                     f_linha = (((log(1.0d0+(x+2.0d0*h(i))**2)) - 2.0d0*(log(1.0d0+(x+h(i))**2)) + 2.0d0*(log(1.0d0+(x-h(i))**2)) - &
                     &(log(1.0d0+(x-2.0d0*h(i))**2)))/(2.0d0*(h(i))**3))!Talvez de erro
                     desvio_derivada = abs(derivada_3_ln - f_linha)
