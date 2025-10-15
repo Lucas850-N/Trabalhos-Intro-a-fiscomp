@@ -23,7 +23,7 @@ program exer3A
 
     open(unit=1, file="exer3A_out.dat", status="Replace", action="Write")
 
-        do i = 1, dim_array
+        do i = 1, dim_array - 1
 
             write(1,*) t(i), theta(i)
 
