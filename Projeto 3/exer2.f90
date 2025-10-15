@@ -10,6 +10,7 @@ program exer2
 
     max_i = 10000000
     allocate(x(max_i), y(max_i), v_x(max_i), v_y(max_i), x_direto(max_i), y_direto(max_i))
+    
     pi = 4*atan(1.0d0)
 
     read *, angulacao_graus
