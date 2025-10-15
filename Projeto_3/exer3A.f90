@@ -51,7 +51,7 @@ program exer3A
     close(4)
 
 
-    deallocate(t, theta)
+    deallocate(t, theta, omega, E_T, E_c, E_p)
 
     
 

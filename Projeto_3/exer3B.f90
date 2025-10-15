@@ -32,9 +32,9 @@ program exer3B
     close(2)
 
         !Cálculo da energia total
-    do i = 1, max_i
+    do i = 1, dim_array
 
-        E_c(i) = 1/2*(m*(l**2)*(omega(i)**2)) 
+        E_c(i) = 0.5d0 * m * (l**2) * (omega(i)**2)
         E_p(i) = m*g*l*(1 - cos(theta(i)))
         E_T(i) = E_c(i) + E_p(i)
 
@@ -50,7 +50,7 @@ program exer3B
 
     close(5)
 
-    deallocate(t, theta)
+    deallocate(t, theta, omega, E_T, E_p, E_c)
 
     
 
@@ -74,9 +74,9 @@ program exer3B
                 
                 t(i+1) = i*delta_t
 
-                omega(i+1) = omega(i) - (g/l)*theta(i)*delta_t
-
-                theta(i+1) = theta(i) + omega(i+1)*delta_t
+                omega(i+1) = omega(i) - (g/l) * theta(i) * delta_t
+                
+                theta(i+1) = theta(i) + omega(i+1) * delta_t
 
                 if (t(1+i) > T_sim) then
 
