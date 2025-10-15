@@ -34,7 +34,7 @@ program exer3B
         !Cálculo da energia total
     do i = 1, max_i
 
-        E_c(i) = 1/2*(m*l*(omega(i)**2)) 
+        E_c(i) = 1/2*(m*(l**2)*(omega(i)**2)) 
         E_p(i) = m*g*l*(1 - cos(theta(i)))
         E_T(i) = E_c(i) + E_p(i)
 
