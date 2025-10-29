@@ -16,11 +16,11 @@ program exercicio
 
     call metodo_euler_efeito_magnus(par, max_i, x, y, z, dim_array, theta_0, phi_0)
 
-    open(unit=1, file="chute_out_6.dat", status="Replace", action="Write")
+    open(unit=1, file="chute_out_3d.dat", status="Replace", action="Write")
 
         do i = 1, dim_array
 
-            write(1, *) x(i), y(i)
+            write(1, *) x(i), y(i), z(i)
 
         end do
 
@@ -35,6 +35,10 @@ program exercicio
         print *, "O jogador não fará gol. nao"
 
     elseif (z(dim_array) > 2.5d0) then
+
+        print *, "O jogador não fará gol. nao"
+
+    elseif(z(dim_array) < 0.0d0) then
 
         print *, "O jogador não fará gol. nao"
 
