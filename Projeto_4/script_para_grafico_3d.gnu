@@ -17,6 +17,9 @@ set yrange [0:14]
 set zrange [0:10]
 set view 60, 25
 set pm3d
+set arrow from 40,4,0 to 40,4,2.5 nohead lc rgb "gray" lw 3 front
+set arrow from 40,10,0 to 40,10,2.5 nohead lc rgb "gray" lw 3 front
+set arrow from 40,4,2.5 to 40,10,2.5 nohead lc rgb "gray" lw 3 front
 unset colorbox
 set ticslevel 0
 set parametric
@@ -24,6 +27,6 @@ set urange [0:42] # Corresponde ao xrange do campo
 set vrange [0:14] # Corresponde ao yrange do campo
 set style fill solid 1.0
 splot u, v, 0 with pm3d fillcolor "#10A010" title "Campo", \
-'chute_out_3d.dat' using 1:2:3 with lines lw 2 lc "red" title '{/Symbol q}0 = 1.45 e {/Symbol f}0 = 0.15'
+'chute_out_3d.dat' using 1:2:3 with lines lw 2 lc "red" title '{/Symbol b}_0/m_b = 0.00005; {/Symbol q}_0 = 1.15 e {/Symbol f}_0 = 0.10'
 unset parametric
 

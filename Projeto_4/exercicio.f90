@@ -20,7 +20,13 @@ program exercicio
 
         do i = 1, dim_array
 
+            if (z(i) < 0.0d0) then
+            exit
+
+            else
             write(1, *) x(i), y(i), z(i)
+
+            end if
 
         end do
 
